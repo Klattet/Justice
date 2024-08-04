@@ -10,7 +10,7 @@ def setup(bot: Bot):
 
 class Presence(Cog):
     def __init__(self, bot: Bot):
-        self.bot = bot
+        self.bot: Bot = bot
 
         self.idle = Activity(
             type = ActivityType.competing,
@@ -28,9 +28,7 @@ class Presence(Cog):
     @Cog.listener("on_command")
     async def awake(self, ctx: Context) -> None:
         if ctx.guild is None: return
-        await self.waiting(ctx)
 
-    async def waiting(self, ctx: Context) -> None:
         if ctx.me.status != Status.online:
             await self.bot.change_presence(status = Status.online, activity = self.online)
         try:

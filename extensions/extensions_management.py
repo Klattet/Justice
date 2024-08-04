@@ -1,4 +1,4 @@
-import os, sys
+import os
 
 from disnake import Message
 from disnake.ext.commands import Cog, Bot, Context, group, ExtensionNotFound, ExtensionNotLoaded, ExtensionAlreadyLoaded, NoEntryPointError, ExtensionFailed, is_owner
@@ -32,7 +32,7 @@ class ExtensionManagement(Cog):
             return await message.edit(f"{message_content}\nNo such extension: {extension_name}")
         except (NoEntryPointError, ExtensionFailed) as exception:
             logger.error(f"Failed to load extension. Code failed to execute: {extension_name}")
-            logger.error(exception, file = sys.stderr, flush = True)
+            logger.error("Failed to load extension.", exc_info = exception)
             return await message.edit(f"{message_content}\nCode error: {extension_name}")
 
     @group(name = "load", invoke_without_command = True)
@@ -71,7 +71,7 @@ class ExtensionManagement(Cog):
             return await message.edit(f"{message_content}\nNo such extension: {extension_name}")
         except (NoEntryPointError, ExtensionFailed) as exception:
             logger.error(f"Failed to reload extension. Code failed to execute: {extension_name}")
-            logger.error(exception, file = sys.stderr, flush = True)
+            logger.error("Failed to load extension.", exc_info = exception)
             return await message.edit(f"{message_content}\nCode error: {extension_name}")
 
     @group(name = "reload", invoke_without_command = True)
@@ -110,7 +110,7 @@ class ExtensionManagement(Cog):
             return await message.edit(f"{message_content}\nNo such extension: {extension_name}")
         except (NoEntryPointError, ExtensionFailed) as exception:
             logger.error(f"Failed to unload extension. Code failed to execute: {extension_name}")
-            logger.error(exception, file = sys.stderr, flush = True)
+            logger.error("Failed to load extension.", exc_info = exception)
             return await message.edit(f"{message_content}\nCode error: {extension_name}")
 
     @group(name = "unload", invoke_without_command = True)

@@ -1,20 +1,23 @@
-import logging, time
+import time
+from logging import Logger, Formatter, getLogger, FileHandler, StreamHandler, DEBUG
 
-__all__ = "init_logging",
+__all__ = "init_logging", "logger"
 
-def init_logging() -> logging.Logger:
-    formatter = logging.Formatter("[%(asctime)s] [%(levelname)-8s] %(message)s", datefmt = "%a, %d %b %Y %H:%M:%S")
-    logger = logging.getLogger(name = "JusticeLog")
-    logger.setLevel(level = logging.DEBUG)
+def init_logging(name: str | None = None, level: str | int | None = None) -> Logger:
+    formatter: Formatter = Formatter("[%(asctime)s] [%(levelname)-8s] %(message)s", datefmt = "%a, %d %b %Y %H:%M:%S")
+    log_result: Logger = getLogger(name)
 
-    file_handler = logging.FileHandler(f"logs/JusticeLog-{time.strftime(f'%a-%d-%b-%Y-%H-%M-%S', time.localtime())}.log")
+    if level is not None:
+        log_result.setLevel(level)
+
+    file_handler: FileHandler = FileHandler(f"logs/{name}-{time.strftime(f'%a-%d-%b-%Y-%H-%M-%S', time.localtime())}.log")
     file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
+    log_result.addHandler(file_handler)
 
-    console_handler = logging.StreamHandler()
+    console_handler: StreamHandler = StreamHandler()
     console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
+    log_result.addHandler(console_handler)
 
-    return logger
+    return log_result
 
-
+logger: Logger = init_logging(name = "JusticeLog", level = DEBUG)
