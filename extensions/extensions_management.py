@@ -1,7 +1,7 @@
 import os
 
 from disnake import Message
-from disnake.ext.commands import Cog, Bot, Context, group, ExtensionNotFound, ExtensionNotLoaded, ExtensionAlreadyLoaded, NoEntryPointError, ExtensionFailed, is_owner
+from disnake.ext.commands import Cog, Bot, Context, group, ExtensionNotFound, ExtensionNotLoaded, ExtensionAlreadyLoaded, NoEntryPointError, ExtensionFailed, is_owner, has_permissions, bot_has_permissions
 
 from lib import logger
 
@@ -37,6 +37,8 @@ class ExtensionManagement(Cog):
 
     @group(name = "load", invoke_without_command = True)
     @is_owner()
+    @has_permissions(send_messages = True)
+    @bot_has_permissions(send_messages = True, embed_links = True)
     async def load(self, ctx: Context, *extension_names: str) -> None:
         message: Message = await ctx.reply(f"**Loading {len(extension_names)} extensions:**\n")
 
@@ -45,6 +47,8 @@ class ExtensionManagement(Cog):
 
     @load.command(name = "all")
     @is_owner()
+    @has_permissions(send_messages = True)
+    @bot_has_permissions(send_messages = True, embed_links = True)
     async def load_all(self, ctx: Context) -> None:
         message: Message = await ctx.reply(f"**Loading all extensions:**\n")
 
@@ -76,6 +80,8 @@ class ExtensionManagement(Cog):
 
     @group(name = "reload", invoke_without_command = True)
     @is_owner()
+    @has_permissions(send_messages = True)
+    @bot_has_permissions(send_messages = True, embed_links = True)
     async def reload(self, ctx: Context, *extension_names: str) -> None:
         message: Message = await ctx.reply(f"**Reloading {len(extension_names)} extensions:**\n")
 
@@ -84,6 +90,8 @@ class ExtensionManagement(Cog):
 
     @reload.command(name = "all")
     @is_owner()
+    @has_permissions(send_messages = True)
+    @bot_has_permissions(send_messages = True, embed_links = True)
     async def reload_all(self, ctx: Context) -> None:
         message: Message = await ctx.reply(f"**Reloading all extensions:**\n")
 
@@ -115,6 +123,8 @@ class ExtensionManagement(Cog):
 
     @group(name = "unload", invoke_without_command = True)
     @is_owner()
+    @has_permissions(send_messages = True)
+    @bot_has_permissions(send_messages = True, embed_links = True)
     async def unload(self, ctx: Context, *extension_names: str) -> None:
         message: Message = await ctx.reply(f"**Unloading {len(extension_names)} extensions:**\n")
 
@@ -123,6 +133,8 @@ class ExtensionManagement(Cog):
 
     @unload.command(name = "all")
     @is_owner()
+    @has_permissions(send_messages = True)
+    @bot_has_permissions(send_messages = True, embed_links = True)
     async def unload_all(self, ctx: Context) -> None:
         message: Message = await ctx.reply(f"**Unloading all extensions:**\n")
 

@@ -1,7 +1,11 @@
-import time
+import time, sys
 from logging import Logger, Formatter, getLogger, FileHandler, StreamHandler, DEBUG
+from types import TracebackType
 
 __all__ = "init_logging", "logger"
+
+def exception_logging(exc_type: type[BaseException], exc_value: BaseException, exc_traceback: TracebackType | None) -> None:
+    logger.critical("Code exception occurred.", exc_info = exc_value)
 
 def init_logging(name: str | None = None, level: str | int | None = None) -> Logger:
     formatter: Formatter = Formatter("[%(asctime)s] [%(levelname)-8s] %(message)s", datefmt = "%a, %d %b %Y %H:%M:%S")
@@ -21,3 +25,4 @@ def init_logging(name: str | None = None, level: str | int | None = None) -> Log
     return log_result
 
 logger: Logger = init_logging(name = "JusticeLog", level = DEBUG)
+sys.excepthook = exception_logging
