@@ -16,22 +16,29 @@ class Events(Cog):
     async def log_ready(self) -> None:
         logger.info("Ready!")
 
+
+    # TODO: Handle exception messages and logging better.
+
     @Cog.listener(Event.error)
     async def error(self, event: str, *args, **kwargs) -> None:
-        print(event)
+        logger.exception(f"Generic error {event}.")
 
     @Cog.listener(Event.command_error)
     async def command_error(self, ctx: Context, error: CommandError) -> None:
         await ctx.reply(f"Oh no! Looks like something went wrong: *{error.__class__.__name__}*", mention_author = False)
+        logger.exception("Command exception occurred.", exc_info = error)
 
     @Cog.listener(Event.user_command_error)
-    async def command_error(self, inter: ApplicationCommandInteraction, error: CommandError) -> None:
+    async def user_command_error(self, inter: ApplicationCommandInteraction, error: CommandError) -> None:
         await inter.send(f"Oh no! Looks like something went wrong: *{error.__class__.__name__}*")
+        logger.exception("User command exception occurred.", exc_info = error)
 
     @Cog.listener(Event.slash_command_error)
-    async def command_error(self, inter: ApplicationCommandInteraction, error: CommandError) -> None:
+    async def slash_command_error(self, inter: ApplicationCommandInteraction, error: CommandError) -> None:
         await inter.send(f"Oh no! Looks like something went wrong: *{error.__class__.__name__}*")
+        logger.exception("Slash command exception occurred.", exc_info = error)
 
     @Cog.listener(Event.message_command_error)
-    async def command_error(self, inter: ApplicationCommandInteraction, error: CommandError) -> None:
+    async def message_command_error(self, inter: ApplicationCommandInteraction, error: CommandError) -> None:
         await inter.send(f"Oh no! Looks like something went wrong: *{error.__class__.__name__}*")
+        logger.exception("Message command exception occurred.", exc_info = error)

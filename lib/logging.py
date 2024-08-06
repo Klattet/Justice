@@ -14,7 +14,7 @@ def init_logging(name: str | None = None, level: str | int | None = None) -> Log
     if level is not None:
         log_result.setLevel(level)
 
-    file_handler: FileHandler = FileHandler(f"logs/{name}-{time.strftime(f'%a-%d-%b-%Y-%H-%M-%S', time.localtime())}.log")
+    file_handler: FileHandler = FileHandler(f"logs/{name}-{time.strftime(f'%d-%b-%Y-%H-%M-%S', time.localtime())}.log")
     file_handler.setFormatter(formatter)
     log_result.addHandler(file_handler)
 
