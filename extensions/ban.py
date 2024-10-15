@@ -7,7 +7,7 @@ def setup(bot: Bot):
     bot.add_cog(Ban(bot))
 
 class Ban(Cog):
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: Bot) -> None:
         self.bot: Bot = bot
 
     class BanFlags(FlagConverter):

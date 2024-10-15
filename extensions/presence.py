@@ -9,7 +9,7 @@ def setup(bot: Bot):
     bot.add_cog(Presence(bot))
 
 class Presence(Cog):
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: Bot) -> None:
         self.bot: Bot = bot
 
         self.idle = Activity(

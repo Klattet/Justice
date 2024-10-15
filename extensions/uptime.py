@@ -9,7 +9,7 @@ def setup(bot: Bot):
     bot.add_cog(Uptime(bot))
 
 class Uptime(Cog):
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: Bot) -> None:
         self.bot: Bot = bot
         self.start_time: datetime = datetime.now(UTC)
 

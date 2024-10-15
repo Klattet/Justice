@@ -9,13 +9,13 @@ def setup(bot: Bot):
     bot.add_cog(Avatar(bot))
 
 class Avatar(Cog):
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: Bot) -> None:
         self.bot: Bot = bot
 
     @command(name = "avatar", aliases = ("icon", "pfp"))
     @has_permissions(send_messages = True)
     @bot_has_permissions(send_messages = True, embed_links = True)
-    async def avatar(self, ctx: Context, users: Greedy[Union[User | Member]]) -> None:
+    async def avatar(self, ctx: Context, users: Greedy[Union[User, Member]]) -> None:
         if len(users) == 0:
             users.append(ctx.author)
 
@@ -31,7 +31,7 @@ class Avatar(Cog):
     @command(name = "default_avatar", aliases = ("defaultavatar", "default_icon", "defaulticon", "default_pfp", "defaultpfp"))
     @has_permissions(send_messages = True)
     @bot_has_permissions(send_messages = True, embed_links = True)
-    async def default_avatar(self, ctx: Context, users: Greedy[Union[User | Member]]) -> None:
+    async def default_avatar(self, ctx: Context, users: Greedy[Union[User, Member]]) -> None:
         if len(users) == 0:
             users.append(ctx.author)
 

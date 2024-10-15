@@ -9,7 +9,7 @@ def setup(bot: Bot):
     bot.add_cog(Events(bot))
 
 class Events(Cog):
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: Bot) -> None:
         self.bot: Bot = bot
 
     @Cog.listener(Event.ready)
